@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+		<title>Planificat'heure</title>
+		<meta 	charset="UTF-8">
+		<link rel="icon" href="css/img/favicon.ico" />
+		<link 	rel="stylesheet" type="text/css" href="css/printable.css"> 
+		<link 	rel="stylesheet" type="text/css" href="css/style.css"> 
+		<script type='text/javascript' src="lib/jquery.js"></script>
+		<!--impossible à charger dans le loader sous firefox pour une foix ie innocent-->
+		<script type='text/javascript' src="js/bortoHeritage.js"></script>
+		<script> var $$=$</script>
+		<link	rel="stylesheet" type="text/css" href="lib/jquery-ui.min.css">
+		<script	src="lib/ui.js"  data-cover></script>
+		<script src="http://code.angularjs.org/1.2.16/angular.min.js"></script>
+		<script src="controller.js"></script>
+		<script>var pasUnTest = true</script>
+		<script type='text/javascript' src="cont/gererEvenement.js"></script>
+		<script type='text/javascript' src="js/serialisation.js"></script>
+		<script type='text/javascript' src="js/ElementGraphique.js"></script>
+		<script type='text/javascript' src="js/Planning.js"></script>
+		<script type='text/javascript' src="js/Colonne.js"></script>
+		<script type='text/javascript' src="js/Evenement.js"></script>
+		<script type='text/javascript' src="js/Periode.js"></script>
+		<script type='text/javascript' src="js/Graphique.js"></script>
+		<script type='text/javascript' src="js/Categorie.js"></script>
+		<script type='text/javascript' src="js/Page.js"></script>
+		<script type='text/javascript' src="cont/gererCategorie.js"></script>
+		<script type='text/javascript' src="cont/gererColonne.js"></script>
+		<script type='text/javascript' src="cont/gererCreationPlanning.js"></script>
+		<script type='text/javascript' src="cont/gererEvenement.js"></script>
+		<script type='text/javascript' src="cont/gererPolice.js"></script>
+  </head>
+  <body>  
+	<div ng-controller="planController" ng-app="planning">
+		<div id="accessToFileForbiden"> 
+		mettre sur un serveur ou 
+		Pour chrome autoriser l'accès à vos fichiers via exécuter (Windows + r) et mettre "chrome.exe --allow-file-access-from-files" <br> vous pouvez aussi installer Firefox pour que ça marche direct ou bien metre l'application sur serveur.
+		Pour Internet Explorer seule la v11 à été testé ie8 incompatible et ie9 et 10 surement compatible.
+		</div>
+		<div ng-include="'html/deleteAccessToFileForbiden.html'"></div>
+		<div ng-class="fen.getClasses()"  ng-repeat="fen in tabFen">
+			<div class="lafen1"  ng-click="fen.afficher(false)"></div>
+			<div  class="lafen2" ng-include="fen.getNameToInclude()"></div>
+		</div>
+	</div>
+	<style id="changeStylecell"> </style>
+	<style id="changeStylechangeTexte"> </style>
+	<script src="controllerImpl.js"></script>
+  </body>
+</html>

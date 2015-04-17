@@ -1,0 +1,22 @@
+l'utilisation de directive est un des  mécanismes les plus puissant d'angularjs, c'est une  fonctionnalité que que l'on rajooute à un élément du Dom via un attribut ou un nom de balise, dans notre présentation on a vu des directive déjà implémenté comme ng-repeat qui permettent de générer du code pour chaque élément d'un tableau mais on peut aussi créer les notres et souvent même on doit créer les notres car angularjs est encore nouveau et ne dispose pas de toutes les fonctionnalité que l'on pourrait avoir besoins.
+
+Pour notre projet nous avons voulu permettre à l'utilisateur de pouvoir glisser déposer des evenements de son planning d'un emplacement horaire à un autre par exemple de 8h à 9h sans qu'il aient à modifier manuellement l'heure.
+Donc pour utiliser la directive on a rajouté un attribut déposer dans le HTML associé à une  fonction qu'il faudra effectué lorqu'un evenement sera laché sur cet emplacement horaire.
+Bien sur déposé n'existe pas et c'est à nous de le déclaré pour cela il faut appeller la  function directive sur mod qui represente notre application. cette fonction nécessite 2 parametres, le premier est le nom de l'attribut , et le second est  plus compliqué c'est une function qui doit retourne un objet contenant la fonction à executé pour chaque élément contenant déposer dans un attribut ou en nom de balise.
+
+Si la syntaxe est aussi compliqué c'est que les directive permettent de faire absolument tous ce que l'on souhaite 
+/* que si j'ai le temps: par exemple à la place de link ou en complément on aurait pu utiliser une propriété template qui aurrait inséré du code html pour chaque élément avec notre attribut.*/
+
+
+
+je vais maintenant vous parlez de jquery qui est un autre framework très populaire et ancien puisqu'il a maintenant 9 ans, l'époque où internet explorer 6 dominait encore parmis les différents navigateurs, ce framework avait vocation à créer un langage unifier et simple, vu que le comportement des navigateurs n'était pas encore standardisé à cette époque là.
+
+Jquery et angularJS ont exactement le même but qui est généré du code HTML, sauf qu'il ne le font pas de la même manière dans angular on a vu que l'on rajouté du code directment dans nos balise HTML alors qu'avec jquery notre code est détaché du html.
+
+
+Maintenant un tableau de comparaison des 2 frameworks, donc des avantages que j'ai déjà cité pour jquery  léger et facile d'utilisation,unification de la syntaxe , deplus jquery est extensible on peut par exemple 
+
+/*rajouté des componsant graphique omme des sliders (une barre qui permet de choisir une valeur en faisant glissé notre doight ou sourris */
+son seul inconvénient qui a fait que l'on à préfféré utilisé angular c'est que le html final est dure à visualiser car les structure de controle comme le si, sinon et les boucles sont directements dans le code Html alors que pour jquery, c'est dans  un script à part qui peux être n'importe où et donc assez dur à maintenir.
+
+Piour toute ses raisons nous avons préfferé angularjs mais nous nous en somme servit de jquery pour les directive où l'on doit souvent manipulé directment le dom, ou pour connaitre les dimmensions de certains composant graphiques avec une syntaxe plus courte, ainsi que lorsque l'on avait besoins de modifier des classe CSS entiere, ce qui n'était possible que par jquery où l'utilisation d'une directive complexe.

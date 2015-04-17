@@ -1,0 +1,7 @@
+﻿<form class="gererColonne" ng-submit="modifHeure()">
+	<label for="heureDeb">Heure début :</label>
+	<input id="heureDeb" type="number" ng-model="horaire.heureDeb" min="0" max="23" />
+	<label for="heureFin">Heure fin :</label>
+	<input id="heureFin" type="number" ng-model="horaire.heureFin" min="1" max="24" />
+	<input type="submit" value="Modifier heure" />
+</form>
