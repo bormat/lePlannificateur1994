@@ -120,56 +120,75 @@
 
 		
 	var parseChaine = function(chaine){
+		
 		//function principal
 		function parse(chaine){
 			eval("tab="+chaine);
-			tab[0] = genererHeritage2(tab[0])
-			function relierRef(obj){
-				obj.relier=true;
-				for( var prop in obj){
-					if(obj.hasOwnProperty(prop)){
-						if (contientUneRef(obj,prop)){
-							eval ("obj[prop]="+ obj[prop]);
-						}
-						if( obj[prop] instanceof Object && !obj[prop].relier){
-							relierRef(obj[prop])
-						}
+			tab = genererHeritage2(tab)	
+			relierRef(tab[0]);
+			nettoyage(tab[0]);
+		}
+		
+		function relierRef(obj){
+			obj.relier=true;
+			for( var prop in obj){
+				if(obj.hasOwnProperty(prop)){
+					if (contientUneRef(obj,prop)){
+						eval ("obj[prop]="+ obj[prop]);
+					}
+					if( obj[prop] instanceof Object && !obj[prop].relier){
+						relierRef(obj[prop])
 					}
 				}
 			}
-			relierRef(tab[0]);
-			nettoyage();
-			remettreLengthAuFauxTableaux();
 		}
-		
+			
 		function contientUneRef(obj,prop){
-			return  prop && obj[prop].indexOf && obj[prop].indexOf("tab[") != -1 
+			return  prop && obj[prop] && obj[prop].indexOf && obj[prop].indexOf("tab[") != -1 
 		}
 		
 		function genererHeritage2(unObj){
 			if (unObj.heritageFait || !(unObj instanceof Object) ){
+				unObj.heritageFait=false;
 				return unObj;
 			}	
 			unObj.heritageFait=true;
 			var theClass = window[unObj.serializationName] || {};
 			theClass.prototype = theClass.prototype || {};
-	
 			var newObj = (theClass == Array) ? [] : Object.create(theClass.prototype) // bonne classe
+			if(newObj instanceof Array ){
+						var max=-1;
+						Object.defineProperties(newObj, {
+							"length": {
+								enumerable: false,
+								writable: true
+							},
+						});
+						for( var j in unObj){
+							if (!isNaN(j) && j > max){
+								max = parseInt(j);
+							}
+						}
+						newObj.length = max+1;
+			}
 			// on remmet les infos
 			for (var i in unObj){
 				newObj[i] = unObj[i];
 				newObj[i] = genererHeritage2(newObj[i]);
-			}				
+			}
 			return newObj;
 		}
 	
-		function nettoyage(){
-			for(var i in tab){
-				delete tab[i].serializationName;
-				delete tab[i].heritageFait;
-				delete tab[i].relier;
+		function nettoyage(obj){
+			if (!obj.relier){
+				return;
 			}
-
+			delete obj.serializationName;
+			delete obj.heritageFait;
+			delete obj.relier;
+			for(var i in obj){
+				nettoyage(obj[i])
+			}
 		}
 		//un faux tableau est un objet héritant de Array mais dont la length n'est du coup plus automatique
 		function remettreLengthAuFauxTableaux(){
@@ -188,7 +207,8 @@
 						}
 					}
 					tab[i].length = max+1;
-				}		
+				}
+				remettreLengthAuFauxTableaux
 			}
 		}
 		var tab;
