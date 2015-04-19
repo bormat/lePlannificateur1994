@@ -7,6 +7,6 @@ function load(arg,dossier){
 		document.body.appendChild(script);
 	}
 }
-load("serialisation,ElementGraphique,Planning,Colonne,Evenement,Periode,Graphique,Categorie,Page","../js/")
+load("serialisation,ElementGraphique,Planning,Colonne,Evenement,Periode,Graphique,Categorie,Page,Tab","../js/")
 load("gererCategorie,gererColonne,gererCreationPlanning,gererEvenement,gererPolice","../cont/")
 load("controllerImpl","../")

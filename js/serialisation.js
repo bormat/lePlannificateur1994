@@ -11,16 +11,16 @@
 		var tab=[];
 		function addSlashes(ch){
 			if (typeof ch == "string"){
-				ch = ch.replace(/\\/g,"\\\\")
-				ch = ch.replace(/\'/g,"\\'")
-				ch = ch.replace(/\"/g,"\\\"")
+				ch = ch.replace(/\\/g,"\\\\").replace(/\'/g,"\\'").replace(/\"/g,"\\\"");
 			}
 			return ch
 		}
 		
 		//pseudo classe		
 		var Reference = {
-			tabDejaLier:[],
+			tabDejaLier:[],//pour chaque id  true si referrencé pls fois sinon false
+			
+			//tabNbSupp pour chaque id le nombre d'objet non afficher au position précédente
 			calculerTabNbSupp : function(){
 				var tabNbSupp = Reference.tabNbSupp = [0];
 				for(var i=1; i<Reference.tabDejaLier.length; i++){
@@ -32,13 +32,10 @@
 			},
 			//constructeur
 			lier:function(ref,dejalier){
-					var obj = Object.create(Reference.prototype);
-					obj.ref = (ref != undefined) ? ref : tab.length ;
-					Reference.tabDejaLier[ref]=Boolean(dejalier);
-					if (isNaN(obj.ref)){
-						throw "erreur";
-					}
-					return obj;
+				var obj = Object.create(Reference.prototype);
+				obj.ref = (ref != undefined) ? ref : tab.length ;
+				Reference.tabDejaLier[ref]=Boolean(dejalier);
+				return obj;
 			},
 			prototype:{			
 				toString:function(){
@@ -59,8 +56,7 @@
 				obj.serializationName = "Array"; //non utilisé dans notre code mais autant faire une bibliotèque complète
 			}
 			obj.myid = tab.push(obj) - 1;
-			var chaine = new Tab();
-			chaine.push("{");
+			var chaine = new Tab("{");
 			for(var i in obj){
 				if (i != "myid" && obj.hasOwnProperty(i)){
 					chaine.push(i,":");
@@ -75,7 +71,7 @@
 					}else{
 						chaine.push("'",addSlashes(obj[i]),"'");
 					}					
-					chaine.push(",");
+					chaine.push(",\n");
 				}
 			}
 			chaine.last("}");//que c'est beau last pour écraser les virgules
